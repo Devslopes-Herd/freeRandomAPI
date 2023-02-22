@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import { Desserts } from '../types/types.type';
 
-const DessertSchema = new mongoose.Schema({
+const DessertSchema = new mongoose.Schema<Desserts>({
   name: {
     type: String,
     unique: true,

@@ -11,11 +11,9 @@ const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 
 const path = require('path');
-dotenv.config({ path: 'config/config.env' });
-
+dotenv.config();
 
 connectDB();
-
 
 const dogRoutes = require('./routes/dogs');
 const catRoutes = require('./routes/cats');
@@ -32,7 +30,7 @@ app.use(express.json());
 // display routes in console
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
-};
+}
 
 app.use(mongoSanitize());
 app.use(helmet());
@@ -56,12 +54,13 @@ app.use('/api/v1/museums', museumRoutes);
 app.use('/api/v1/desserts', dessertRoutes);
 
 // Error Handling
-app.use(errorHandler)
+app.use(errorHandler);
 
-
-const server = app.listen(PORT, () => console.log(`Server is running ${process.env.NODE_ENV} mode on port ${PORT}`));
+const server = app.listen(PORT, () =>
+  console.log(`Server is running ${process.env.NODE_ENV} mode on port ${PORT}`)
+);
 
 process.on('unhandledRejection', (err) => {
-  console.log(`Error: ${err.message}`);
+  console.log(`Error: ${err}`);
   server.close(() => process.exit(1));
-})
+});
